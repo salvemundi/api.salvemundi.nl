@@ -5,6 +5,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
+import { PassportModule } from '@nestjs/passport';
+import { AzureADStrategy } from './guards/azure-ad.guard';
 
 @Module({
   imports: [
@@ -26,6 +28,6 @@ import User from './users/entity/user.entity';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, PassportModule, AzureADStrategy],
 })
 export class AppModule {}
