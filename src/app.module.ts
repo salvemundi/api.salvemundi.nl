@@ -6,7 +6,8 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
 import { PassportModule } from '@nestjs/passport';
-import { AzureADStrategy } from './guards/azure-ad.guard';
+// import { AzureADStrategy } from './guards/azure-ad.guard';
+import { AzureModule } from './azure/azure.module';
 
 @Module({
   imports: [
@@ -26,8 +27,9 @@ import { AzureADStrategy } from './guards/azure-ad.guard';
     }),
     inject: [ConfigService],
     }),
+    AzureModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PassportModule, AzureADStrategy],
+  providers: [AppService, PassportModule, /**AzureADStrategy*/],
 })
 export class AppModule {}
