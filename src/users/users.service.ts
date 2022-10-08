@@ -3,9 +3,9 @@ import User from './entity/user.entity';
 
 @Injectable()
 export class UsersService {
-    public createUser(name:string):Promise<User> {
+    public createUser(userpam:User):Promise<User> {
         const user = new User();
-        user.name = name;
+        user.name = userpam.name;
         return user.save();
     }
 }
