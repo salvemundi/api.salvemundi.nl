@@ -1,26 +1,30 @@
-import { Injectable } from '@nestjs/common';
-require('isomorphic-fetch');
+import { Injectable } from "@nestjs/common";
+
 const azure = require('@azure/identity');
 const graph = require('@microsoft/microsoft-graph-client');
 const authProviders = require('@microsoft/microsoft-graph-client/authProviders/azureTokenCredentials');
-let _clientSecretCredential = undefined;
+require('isomorphic-fetch');
 
 let _appClient = undefined;
+let _clientSecretCredential = undefined;
 
+/**
+ * Graph helper class.
+ */
 @Injectable()
-export class AzureService {
-    public async getUsersAsync(): Promise<String> {
-        this.ensureGraphForAppOnlyAuth();
-        let result = _appClient?.api('/users')
-          .select(['displayName', 'id', 'mail'])
-          .top(25)
-          .orderby('displayName')
-          .get();
-        console.log(result);
-        return result;
+export default class GraphHelper {
+    /**
+     * Returns the application client.
+     */
+    public getAppClient() {
+        this.createGraphInstance();
+        return _appClient;
     }
 
-    ensureGraphForAppOnlyAuth() {
+    /**
+     * Returns a authenticated graph instance which can be used to make requests to Azure.
+     */
+    private createGraphInstance() {
         const settings = {
             'clientId': process.env.CLIENT_APP_ID,
             'clientSecret': process.env.CLIENT_APP_SECRET,
@@ -51,12 +55,12 @@ export class AzureService {
 
         if (!_appClient) {
             const authProvider = new authProviders.TokenCredentialAuthenticationProvider(
-            _clientSecretCredential, {
+                _clientSecretCredential, {
                 scopes: [ 'https://graph.microsoft.com/.default' ]
             });
 
             _appClient = graph.Client.initWithMiddleware({
-            authProvider: authProvider
+                authProvider: authProvider
             });
         }
     }

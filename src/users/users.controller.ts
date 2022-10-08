@@ -5,11 +5,9 @@ import { UsersService } from './users.service';
 @Controller('users')
 export class UsersController {
     constructor (private readonly usersService:UsersService) {}
-    @Post('/')
-    public createUser(
-        @Body() user:User,
 
-    ):Promise<User> {
-        return this.usersService.createUser(user);
+    @Get('/')
+    public async getUsersFromAzure() {
+        return await this.usersService.getUsersAsync();
     }
 }
