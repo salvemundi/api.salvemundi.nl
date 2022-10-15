@@ -91,8 +91,35 @@ export class UsersService {
         user.first_name + ((user.insertion != null) ? `.${user.insertion}.` : '.') + user.last_name + suffix + process.env.SAMU_MEMBER_EMAIL_DOMAIN,
       passwordProfile: {
         forceChangePasswordNextSignIn: true,
-        password: process.env.DEFAULT_AZURE_PASSWORD,
+        password: this.makeRandomPassword(),
       },
     });
+  }
+
+  /**
+   * Creates an azure account.
+   * @param length length of random generated password
+   * @returns random generated password
+   */
+  private makeRandomPassword(length = 25) : string {
+    // Define character (ascii) ranges
+    const ranges = [
+      { start: 48, end: 57 },
+      { start: 65, end: 90 },
+      { start: 97, end: 122 },
+      { start: 33, end: 43 }
+    ];
+
+    let pwd = "";
+
+    // Pick random range and then pick random character from said range
+    for(let x = 0; x < length; x++) {
+      const randRangeObj = ranges[Math.floor(Math.random() * ranges.length)];
+      const charRange = randRangeObj.end - randRangeObj.start;
+      const randomChar = randRangeObj.start + Math.floor(Math.random() * charRange);
+      pwd += String.fromCharCode(randomChar);
+    }
+
+    return pwd;
   }
 }
