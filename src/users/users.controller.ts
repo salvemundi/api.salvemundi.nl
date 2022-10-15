@@ -10,4 +10,9 @@ export class UsersController {
     public async getUsersFromAzure() {
         return await this.usersService.getUsersAsync();
     }
+
+    @Post('/')
+    public async createUser(@Body() user: User) {
+        return await this.usersService.signUpUser(user);
+    }
 }

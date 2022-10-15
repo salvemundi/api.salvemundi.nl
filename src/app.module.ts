@@ -10,7 +10,6 @@ import { PassportModule } from '@nestjs/passport';
 
 @Module({
   imports: [
-    UsersModule,
     ConfigModule.forRoot({}),
     TypeOrmModule.forRootAsync({
     imports: [ConfigModule],
@@ -26,8 +25,10 @@ import { PassportModule } from '@nestjs/passport';
     }),
     inject: [ConfigService],
     }),
+    UsersModule,
+    PassportModule,
   ],
   controllers: [AppController],
-  providers: [AppService, PassportModule],
+  providers: [AppService],
 })
 export class AppModule {}
