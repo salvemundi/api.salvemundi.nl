@@ -39,6 +39,21 @@ export class UsersService {
    */
   public async signUpUser(user:User): Promise<boolean> {
     this.userRepository.save(user);
+
+    let azureResponse = await this.createAzureAccount(user);
+
+    if (!azureResponse.IsSuccessStatusCode) {
+      try {
+        throw new Error('Azure create account request failed!');
+        return false;
+      }
+      catch(e) {
+        console.log(e);
+      }
+    }
+    else {
+      return true;
+    }
   }
 
   /**
@@ -46,6 +61,19 @@ export class UsersService {
    * @param {User} user The user to create.
    */
   private async createAzureAccount(user:User) {
-    await this._graphClient?.api('/users').;
+    // Transform user object to suitable azure account object
+
+    const azureUser = {
+      accountEnabled: true,
+      displayName: user.first_name + " " + user.last_name,
+      mailNickname: user.first_name + user.last_name.charAt(0).toUpperCase(),
+      userPrincipalName: user.first_name + "." + user.last_name + process.env.SAMU_MEMBER_EMAIL_DOMAIN,
+      passwordProfile: {
+        forceChangePasswordNextSignIn: true,
+        password: process.env.DEFAULT_AZURE_PASSWORD
+      }
+    };
+
+    return await this._graphClient?.api('/users').post(azureUser);
   }
 }
