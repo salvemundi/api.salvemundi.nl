@@ -6,6 +6,8 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
 import { PassportModule } from '@nestjs/passport';
+import { SettingModule } from './setting/setting.module';
+import Setting from './setting/entity/setting.entity';
 
 
 @Module({
@@ -20,13 +22,14 @@ import { PassportModule } from '@nestjs/passport';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User],
+      entities: [User, Setting],
       synchronize: true,
     }),
     inject: [ConfigService],
     }),
     UsersModule,
     PassportModule,
+    SettingModule,
   ],
   controllers: [AppController],
   providers: [AppService],
