@@ -42,13 +42,16 @@ export class UsersService {
     try {
       // Check if the user exists
       // If so, let's append a number.
-      const existingUsers = await this.findUsersByName("Test", "User");
+      const existingUsers = await this.findUsersByName(user.first_name, user.last_name);
       let suffix = "";
 
       if(existingUsers.length > 0)
         suffix = `${existingUsers.length + 1}`;
 
-      user.email = user.first_name + ((user.insertion != null) ? `.${user.insertion}.` : '.') + user.last_name + suffix + process.env.SAMU_MEMBER_EMAIL_DOMAIN;
+      let email_first_name = user.first_name.replace(/\s/g, ".");
+      let email_last_name =  user.last_name.replace(/\s/g, ".");
+
+      user.email = email_first_name + ((user.insertion != null) ? `.${user.insertion}.` : '.') + email_last_name + suffix + process.env.SAMU_MEMBER_EMAIL_DOMAIN;
 
       await this.createAzureAccount(user, suffix);
       await this.userRepository.save(user);
@@ -81,14 +84,12 @@ export class UsersService {
     return await this._graphClient?.api('/users').post({
       accountEnabled: true,
       displayName: user.first_name + ((user.insertion != null) ? ` ${user.insertion} ` : ' ') + user.last_name,
-      mailNickname: user.first_name,
+      mailNickname: user.first_name.replace(/\s/g, ""),
       givenName: user.first_name,
       surname: user.last_name,
       mobilePhone: user.phone_number,
-      userPrincipalName:
-        user.first_name + ((user.insertion != null) ? `.${user.insertion}.` : '.') + user.last_name + suffix + process.env.SAMU_MEMBER_EMAIL_DOMAIN,
-      mail:
-        user.first_name + ((user.insertion != null) ? `.${user.insertion}.` : '.') + user.last_name + suffix + process.env.SAMU_MEMBER_EMAIL_DOMAIN,
+      userPrincipalName: user.email,
+      mail: user.email,
       passwordProfile: {
         forceChangePasswordNextSignIn: true,
         password: this.makeRandomPassword(),
