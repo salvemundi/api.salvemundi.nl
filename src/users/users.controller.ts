@@ -1,8 +1,10 @@
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import User from './entity/user.entity';
 import { UsersService } from './users.service';
+import { AzureADGuard } from '../guards/azure-ad.guard';
 
 @Controller('users')
+@UseGuards(AzureADGuard)
 export class UsersController {
     constructor (private readonly usersService:UsersService) {}
 

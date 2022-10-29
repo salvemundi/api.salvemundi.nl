@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
+import { AzureADStrategy } from './guards/azure-ad.guard';
 import { PassportModule } from '@nestjs/passport';
 
 
@@ -12,7 +13,7 @@ import { PassportModule } from '@nestjs/passport';
   imports: [
     ConfigModule.forRoot({}),
     TypeOrmModule.forRootAsync({
-    imports: [ConfigModule],
+    imports: [ConfigModule, PassportModule],
     useFactory: (configService: ConfigService) => ({
       type: 'mysql',
       host: configService.get('TYPEORM_HOST'),
@@ -29,6 +30,6 @@ import { PassportModule } from '@nestjs/passport';
     PassportModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, AzureADStrategy],
 })
 export class AppModule {}
