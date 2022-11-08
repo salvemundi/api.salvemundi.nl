@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn,UpdateDateColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 
 @Entity()
@@ -7,7 +7,7 @@ import { IsEmail, IsNotEmpty } from 'class-validator';
  */
 export default class User extends BaseEntity {
   @PrimaryGeneratedColumn("uuid")
-  public azure_id: string;
+  public id: string;
 
   @Column()
   @IsNotEmpty()
