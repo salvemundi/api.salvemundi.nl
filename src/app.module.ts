@@ -7,7 +7,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { SettingModule } from './setting/setting.module';
+import { OldBoardModule } from './old_board/old_board.module';
 import Setting from './setting/entity/setting.entity';
+import OldBoard from './old_board/entity/old_board.entity';
 
 
 @Module({
@@ -22,7 +24,7 @@ import Setting from './setting/entity/setting.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting],
+      entities: [User, Setting, OldBoard],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -30,6 +32,7 @@ import Setting from './setting/entity/setting.entity';
     UsersModule,
     PassportModule,
     SettingModule,
+    OldBoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
