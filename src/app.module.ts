@@ -7,8 +7,9 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { SettingModule } from './setting/setting.module';
+import { ClubModule } from './clubs/club.module';
 import Setting from './setting/entity/setting.entity';
-
+import Club from './clubs/entity/club.entity';
 
 @Module({
   imports: [
@@ -22,7 +23,7 @@ import Setting from './setting/entity/setting.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting],
+      entities: [User, Setting, Club],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -30,6 +31,7 @@ import Setting from './setting/entity/setting.entity';
     UsersModule,
     PassportModule,
     SettingModule,
+    ClubModule
   ],
   controllers: [AppController],
   providers: [AppService],
