@@ -27,14 +27,12 @@ export default class Club extends BaseEntity {
     public img_path: string;
 
     @IsNotEmpty()
-    @Column({nullable: true})
+    @Column()
     public whatsapp_link: string;
 
-    @IsNotEmpty()
     @Column({nullable: true})
     public discord_link: string;
 
-    @IsNotEmpty()
     @Column({nullable: true})
     public other_link: string;
 

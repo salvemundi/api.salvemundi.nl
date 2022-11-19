@@ -21,7 +21,7 @@ import Club from './entity/club.entity';
     }
 
     @Post('/')
-    public async createClub(club: Club) {
+    public async createClub(@Body() club: Club) {
         return await this.clubService.create(club);
     }
   
