@@ -28,7 +28,7 @@ import OldBoard from './old_board/entity/old_board.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink],
+      entities: [User, Setting, WhatsappLink, OldBoard],
       synchronize: true,
     }),
     inject: [ConfigService],
