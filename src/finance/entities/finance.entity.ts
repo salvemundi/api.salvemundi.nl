@@ -21,6 +21,7 @@ export default class Finance extends BaseEntity {
     public year: number;
 
     @AutoMap()
+    @Column()
     public pdf_path: string;
 
     @CreateDateColumn({ type: "timestamp", default: () => "CURRENT_TIMESTAMP(6)" })
