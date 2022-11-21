@@ -13,7 +13,9 @@ import Setting from './setting/entity/setting.entity';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
+import { FinanceModule } from './finance/finance.module';
 import OldBoard from './old_board/entity/old_board.entity';
+import Finance from './finance/entities/finance.entity';
 
 
 @Module({
@@ -28,7 +30,7 @@ import OldBoard from './old_board/entity/old_board.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink, OldBoard],
+      entities: [User, Setting, WhatsappLink, OldBoard, Finance],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -37,10 +39,11 @@ import OldBoard from './old_board/entity/old_board.entity';
     PassportModule,
     SettingModule,
     WhatsappLinksModule,
+    OldBoardModule,
+    FinanceModule,
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),
-    OldBoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
