@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export default class UpdateWhatsappLinkDto {
+export default class UpdateOldBoardDto {
   @AutoMap()
   readonly description: string;
 
