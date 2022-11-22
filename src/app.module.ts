@@ -8,10 +8,12 @@ import User from './users/entity/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { SettingModule } from './setting/setting.module';
 import { WhatsappLinksModule } from './whatsapp_links/whatsapp_links.module';
+import { OldBoardModule } from './old_board/old_board.module';
 import Setting from './setting/entity/setting.entity';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
+import OldBoard from './old_board/entity/old_board.entity';
 
 
 @Module({
@@ -26,7 +28,7 @@ import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink],
+      entities: [User, Setting, WhatsappLink, OldBoard],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -38,6 +40,7 @@ import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),
+    OldBoardModule,
   ],
   controllers: [AppController],
   providers: [AppService],
