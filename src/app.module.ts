@@ -31,7 +31,7 @@ import Club from './clubs/entity/club.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink, OldBoard, Finance],
+      entities: [User, Setting, WhatsappLink, OldBoard, Finance, Club],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -42,6 +42,7 @@ import Club from './clubs/entity/club.entity';
     WhatsappLinksModule,
     OldBoardModule,
     FinanceModule,
+    ClubModule,
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),

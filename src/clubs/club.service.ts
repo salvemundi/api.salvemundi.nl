@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import UpdateClubDto from './dtos/club.update.dto';
+import UpdateClubDto from './dto/update-club.dto';
 import Club from './entity/club.entity';
 
 @Injectable()
@@ -28,11 +28,7 @@ export class ClubService {
     return await this.clubRepository.find();
   }
 
-  /**
-   * Gets the specified club.
-   * @param id The ID of the club to find.
-   * @returns 
-   */
+
   public async findOne(id: string): Promise<Club> {
     let club = await this.clubRepository.findOneBy({id: id});
     

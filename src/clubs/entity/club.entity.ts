@@ -1,7 +1,6 @@
 import { IsNotEmpty } from 'class-validator';
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
-
 /**
  * Represents a Club.
  */
