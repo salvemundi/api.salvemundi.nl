@@ -7,8 +7,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import User from './users/entity/user.entity';
 import { PassportModule } from '@nestjs/passport';
 import { SettingModule } from './setting/setting.module';
+import { WhatsappLinksModule } from './whatsapp_links/whatsapp_links.module';
+import { OldBoardModule } from './old_board/old_board.module';
 import { ClubModule } from './clubs/club.module';
 import Setting from './setting/entity/setting.entity';
+import { AutomapperModule } from '@automapper/nestjs';
+import { classes } from '@automapper/classes';
+import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
+import { FinanceModule } from './finance/finance.module';
+import OldBoard from './old_board/entity/old_board.entity';
+import Finance from './finance/entities/finance.entity';
 import Club from './clubs/entity/club.entity';
 
 @Module({
@@ -23,7 +31,7 @@ import Club from './clubs/entity/club.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, Club],
+      entities: [User, Setting, WhatsappLink, OldBoard, Finance],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -31,7 +39,12 @@ import Club from './clubs/entity/club.entity';
     UsersModule,
     PassportModule,
     SettingModule,
-    ClubModule
+    WhatsappLinksModule,
+    OldBoardModule,
+    FinanceModule,
+    AutomapperModule.forRoot({
+      strategyInitializer: classes()
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
