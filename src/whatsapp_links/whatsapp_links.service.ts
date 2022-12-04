@@ -1,8 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { CreateWhatsappLinkDto } from './dto/create-whatsapp_link.dto';
-import { UpdateWhatsappLinkDto } from './dto/update-whatsapp_link.dto';
 import { WhatsappLink } from './entities/whatsapp_link.entity';
 
 @Injectable()

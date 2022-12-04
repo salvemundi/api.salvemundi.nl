@@ -1,14 +1,17 @@
 import { AutoMap } from "@automapper/classes";
 
-export class GetWhatsappLinkDto {
+export class GetJobDto {
     @AutoMap()
     readonly id: string;
 
     @AutoMap()
-    readonly link: string;
+    readonly name: string;
 
     @AutoMap()
-    readonly name: string;
+    readonly study_profile: number;
+
+    @AutoMap()
+    readonly link: string;
 
     @AutoMap()
     readonly description: string;
