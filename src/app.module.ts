@@ -14,9 +14,10 @@ import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
 import { FinanceModule } from './finance/finance.module';
+import { NewsModule } from './news/news.module';
 import OldBoard from './old_board/entity/old_board.entity';
 import Finance from './finance/entities/finance.entity';
-
+import News from './news/entity/news.entity';
 
 @Module({
   imports: [
@@ -30,7 +31,7 @@ import Finance from './finance/entities/finance.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink, OldBoard, Finance],
+      entities: [User, Setting, WhatsappLink, OldBoard, Finance, News],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -41,9 +42,11 @@ import Finance from './finance/entities/finance.entity';
     WhatsappLinksModule,
     OldBoardModule,
     FinanceModule,
+    NewsModule,
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),
+    NewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
