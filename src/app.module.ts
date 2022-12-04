@@ -10,6 +10,7 @@ import { SettingModule } from './setting/setting.module';
 import { WhatsappLinksModule } from './whatsapp_links/whatsapp_links.module';
 import { OldBoardModule } from './old_board/old_board.module';
 import { ClubModule } from './clubs/club.module';
+import { DiscordLinkModule } from './discord_link/discord_link.module';
 import Setting from './setting/entity/setting.entity';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
@@ -18,6 +19,7 @@ import { FinanceModule } from './finance/finance.module';
 import OldBoard from './old_board/entity/old_board.entity';
 import Finance from './finance/entities/finance.entity';
 import Club from './clubs/entity/club.entity';
+import DiscordLink from './discord_link/entity/discord_link.entity';
 
 @Module({
   imports: [
@@ -31,7 +33,7 @@ import Club from './clubs/entity/club.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink, OldBoard, Finance, Club],
+      entities: [User, Setting, WhatsappLink, OldBoard, Finance, Club, DiscordLink],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -43,6 +45,7 @@ import Club from './clubs/entity/club.entity';
     OldBoardModule,
     FinanceModule,
     ClubModule,
+    DiscordLinkModule,
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),
