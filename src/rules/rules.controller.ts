@@ -2,29 +2,63 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { RulesService } from './rules.service';
 import { CreateRuleDto } from './dto/create-rule.dto';
 import { UpdateRuleDto } from './dto/update-rule.dto';
+import { InjectMapper } from '@automapper/nestjs';
+import { Mapper } from '@automapper/core';
+import Rule from './entities/rule.entity';
+import { GetRuleDto } from './dto/get-rule-.dot';
 
 @Controller('rules')
 export class RulesController {
-  constructor(private readonly rulesService: RulesService) {}
+  constructor(
+    private readonly rulesService: RulesService,
+    @InjectMapper() private readonly classMapper: Mapper,
+  ) {}
 
   @Post()
-  create(@Body() createRuleDto: CreateRuleDto) {
-    return this.rulesService.create(createRuleDto);
+  public async create(@Body() createRuleDto: CreateRuleDto) {
+    let rule = this.classMapper.map(
+      createRuleDto,
+      CreateRuleDto,
+      Rule
+    );
+    return this.classMapper.mapAsync(
+      await this.rulesService.create(rule),
+      Rule,
+      GetRuleDto
+    );
   }
 
   @Get()
-  findAll() {
-    return this.rulesService.findAll();
+  public async findAll() {
+    return this.classMapper.mapArrayAsync(
+      await this.rulesService.findAll(),
+      Rule,
+      GetRuleDto
+    );
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.rulesService.findOne(id);
+  public async findOne(@Param('id') id: string) {
+    return this.classMapper.mapAsync(
+      await this.rulesService.findOne(id),
+      Rule,
+      GetRuleDto
+    );
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateRuleDto: UpdateRuleDto) {
-    return this.rulesService.update(id, updateRuleDto);
+  public async update(@Param('id') id: string, @Body() updateRuleDto: UpdateRuleDto) {
+    let rule = this.classMapper.map(
+      updateRuleDto,
+      UpdateRuleDto,
+      Rule
+    );
+
+    return this.classMapper.mapAsync(
+      await this.rulesService.update(id, rule),
+      Rule,
+      GetRuleDto
+    );
   }
 
   @Delete(':id')

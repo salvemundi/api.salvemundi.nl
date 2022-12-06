@@ -25,7 +25,7 @@ export class RulesService {
   public async findOne(id: string) {
     const rule = await this.ruleRepository.findOneBy({ id: id });
     if (rule == null) {
-      throw new NotFoundException('Board with id: ' + id + ' can not be found');
+      throw new NotFoundException('Rule with id: ' + id + ' can not be found');
     }
     return rule;
   }
