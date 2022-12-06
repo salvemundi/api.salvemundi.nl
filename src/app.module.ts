@@ -47,7 +47,6 @@ import Rule from './rules/entities/rule.entity';
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),
-    RulesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
