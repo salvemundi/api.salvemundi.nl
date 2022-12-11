@@ -13,8 +13,10 @@ import Setting from './setting/entity/setting.entity';
 import { AutomapperModule } from '@automapper/nestjs';
 import { classes } from '@automapper/classes';
 import { WhatsappLink } from './whatsapp_links/entities/whatsapp_link.entity';
+import { Job } from './jobs/entities/job.entity';
 import { FinanceModule } from './finance/finance.module';
 import { NewsModule } from './news/news.module';
+import { JobsModule } from './jobs/jobs.module';
 import OldBoard from './old_board/entity/old_board.entity';
 import Finance from './finance/entities/finance.entity';
 import News from './news/entity/news.entity';
@@ -31,7 +33,7 @@ import News from './news/entity/news.entity';
       username: configService.get('TYPEORM_USERNAME'),
       password: configService.get('TYPEORM_PASSWORD'),
       database: configService.get('TYPEORM_DATABASE'),
-      entities: [User, Setting, WhatsappLink, OldBoard, Finance, News],
+      entities: [User, Setting, WhatsappLink, OldBoard, Finance, News, Job],
       synchronize: true,
     }),
     inject: [ConfigService],
@@ -40,12 +42,13 @@ import News from './news/entity/news.entity';
     PassportModule,
     SettingModule,
     WhatsappLinksModule,
+    JobsModule,
     OldBoardModule,
     FinanceModule,
     NewsModule,
     AutomapperModule.forRoot({
       strategyInitializer: classes()
-    }),
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
