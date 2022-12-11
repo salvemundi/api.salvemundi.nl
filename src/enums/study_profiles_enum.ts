@@ -1,0 +1,8 @@
+export enum StudyProfilesEnum {
+  NONE = "NONE",
+  SOFTWARE = "SOFTWARE",
+  TECH = "TECH",
+  BUSINESS = "BUSINESS",
+  MEDIA = "MEDIA",
+  INFRASTRUCTURE = "INFRASTRUCTURE",
+}
