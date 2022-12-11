@@ -1,6 +1,6 @@
 import { AutoMap } from '@automapper/classes';
 
-export default class UpdateOldBoardDto {
+export default class GetOldBoardDto {
   @AutoMap()
   readonly id: string;
 
