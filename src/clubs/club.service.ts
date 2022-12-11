@@ -46,18 +46,8 @@ export class ClubService {
    * @returns The updated club.
    */
   public async update(id: string, clubProps: UpdateClubDto): Promise<Club> {
-    let foundClub = await this.findOne(id);
-    
-    foundClub.club_name = clubProps.club_name;
-    foundClub.founder_name = clubProps.founder_name;
-    foundClub.nick_name = clubProps.nick_name;
-    foundClub.img_path = clubProps.img_path;
-    foundClub.whatsapp_link = clubProps.whatsapp_link;
-    foundClub.discord_link = clubProps.discord_link;
-    foundClub.other_link = clubProps.other_link;
-    foundClub.description = clubProps.description;
-
-    return await this.clubRepository.save(foundClub);
+    await this.clubRepository.update(id, clubProps);
+    return await this.findOne(id);
   }
 
   /**

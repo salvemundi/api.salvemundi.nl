@@ -45,11 +45,8 @@ export class DiscordLinkService {
    * @returns The updated discord link.
    */
   public async update(id: string, linkProps: UpdateDiscordLinkDto): Promise<DiscordLink> {
-    let foundLink = await this.findOne(id);
-    
-    foundLink.link = linkProps.link;
-
-    return await this.discordLinkRepository.save(foundLink);
+    await this.discordLinkRepository.update(id, linkProps);
+    return await this.findOne(id);
   }
 
   /**
