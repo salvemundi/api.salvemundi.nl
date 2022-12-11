@@ -46,7 +46,6 @@ import News from './news/entity/news.entity';
     AutomapperModule.forRoot({
       strategyInitializer: classes()
     }),
-    NewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
