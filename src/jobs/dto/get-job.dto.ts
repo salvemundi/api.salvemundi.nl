@@ -1,4 +1,5 @@
 import { AutoMap } from "@automapper/classes";
+import { StudyProfilesEnum } from "../../enums/study_profiles_enum";
 
 export class GetJobDto {
     @AutoMap()
@@ -8,7 +9,7 @@ export class GetJobDto {
     readonly name: string;
 
     @AutoMap()
-    readonly study_profile: number;
+    readonly study_profile: StudyProfilesEnum;
 
     @AutoMap()
     readonly link: string;

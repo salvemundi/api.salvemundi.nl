@@ -46,8 +46,7 @@ import Finance from './finance/entities/finance.entity';
     FinanceModule,
     AutomapperModule.forRoot({
       strategyInitializer: classes()
-    }),
-    JobsModule,
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

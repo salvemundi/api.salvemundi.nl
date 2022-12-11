@@ -1,10 +1,11 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import { AutoMap } from "@automapper/classes";
+import { StudyProfilesEnum } from '../../enums/study_profiles_enum';
 
 @Entity()
 /**
- * Whatsapp links entity.
+ * Job entity.
  */
 export class Job {
     @PrimaryGeneratedColumn("uuid")
@@ -16,10 +17,14 @@ export class Job {
     @AutoMap()
     public name: string;
 
-    @Column()
+    @Column({
+        type: "set",
+        enum: StudyProfilesEnum,
+        default: [StudyProfilesEnum.NONE],
+    })
     @IsNotEmpty()
     @AutoMap()
-    public study_profile: number;
+    public study_profile: StudyProfilesEnum;
 
     @Column()
     @IsNotEmpty()
