@@ -1,14 +1,18 @@
 import { AutoMap } from "@automapper/classes";
+import { StudyProfilesEnum } from "../../enums/study_profiles_enum";
 
-export class GetWhatsappLinkDto {
+export class GetJobDto {
     @AutoMap()
     readonly id: string;
 
     @AutoMap()
-    readonly link: string;
+    readonly name: string;
 
     @AutoMap()
-    readonly name: string;
+    readonly study_profile: StudyProfilesEnum;
+
+    @AutoMap()
+    readonly link: string;
 
     @AutoMap()
     readonly description: string;
